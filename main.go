@@ -21,6 +21,7 @@ type conf struct {
 	ConsumerSecret string
 	AccessToken    string
 	AccessSecret   string
+	Refresh        time.Duration
 	Lists          []list
 }
 

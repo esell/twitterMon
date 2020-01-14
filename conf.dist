@@ -3,6 +3,7 @@
         "ConsumerSecret": "",
         "AccessToken": "",
         "AccessSecret": "",
+        "Refresh": 2,
         "lists": [
             {"name": "List1", "listID": 1234567},
             {"name": "List2", "listID": 9876543},

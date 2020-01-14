@@ -37,9 +37,9 @@ func createTextViewItem(title string) *cview.TextView {
 }
 
 func textViewProcessFeed(tv *cview.TextView, listID int64, api *anaconda.TwitterApi) {
-	lastUpdateTime := time.Now()
 	for {
 		tv.Clear()
+		lastUpdateTime := time.Now()
 		fmt.Fprintf(tv, "[#CCFFCC::b]%s %v[white]\n\n", "UPDATED", lastUpdateTime.Format(time.UnixDate))
 		timeTweets, err := getListTweets(api, listID)
 		if err != nil {
@@ -52,7 +52,7 @@ func textViewProcessFeed(tv *cview.TextView, listID int64, api *anaconda.Twitter
 			}
 			fmt.Fprintf(tv, "[#66CCFF::b]%s[-::-] at [#66CCFF]%s[-]:\n\n%s\n%s\n\n", tweet.User.ScreenName, tempTime.Local().Format(time.UnixDate), tweet.Text, tweetSplit)
 		}
-		time.Sleep(2 * time.Minute)
+		time.Sleep(parsedconfig.Refresh * time.Minute)
 	}
 }
 
