@@ -1,0 +1,11 @@
+{
+        "ConsumerKey": "",
+        "ConsumerSecret": "",
+        "AccessToken": "",
+        "AccessSecret": "",
+        "lists": [
+            {"name": "List1", "listID": 1234567},
+            {"name": "List2", "listID": 9876543},
+            {"name": "List3", "listID": 2223331}
+        ]
+}
