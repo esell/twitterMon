@@ -47,6 +47,26 @@ func main() {
 	flag.Parse()
 	readConfig()
 
+	// twitter API client
+	apiClient := getAPIClient(parsedconfig.AccessToken, parsedconfig.AccessSecret, parsedconfig.ConsumerKey, parsedconfig.ConsumerSecret)
+	apiClient.SetLogger(anaconda.BasicLogger)
+	second := 2
+	duration := time.Duration(second) * time.Second
+	apiClient.EnableThrottling(duration, 1)
+
+	// no db access needed for this...
+	if *doGetFollowing {
+		following, err := getFollowing(apiClient)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for _, friend := range following {
+			fmt.Printf("\"%s\",\"@%s\"\n", friend.Name, friend.ScreenName)
+		}
+		os.Exit(0)
+	}
+
 	if *createDb {
 		var err error
 		log.Println("creating new database...")
@@ -82,12 +102,6 @@ func main() {
 	}
 	defer db.Close()
 
-	apiClient := getAPIClient(parsedconfig.AccessToken, parsedconfig.AccessSecret, parsedconfig.ConsumerKey, parsedconfig.ConsumerSecret)
-	apiClient.SetLogger(anaconda.BasicLogger)
-	second := 2
-	duration := time.Duration(second) * time.Second
-	apiClient.EnableThrottling(duration, 1)
-
 	// create empty lists in Twitter
 	if *createLists {
 		err := loadCreateLists(apiClient, "lists.csv")
@@ -95,18 +109,6 @@ func main() {
 			log.Fatal(err)
 		}
 		assignAllToLists(apiClient)
-		os.Exit(0)
-	}
-
-	if *doGetFollowing {
-		following, err := getFollowing(apiClient)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		for _, friend := range following {
-			fmt.Printf("\"%s\",\"@%s\"\n", friend.Name, friend.ScreenName)
-		}
 		os.Exit(0)
 	}
 
@@ -139,7 +141,7 @@ func main() {
 	}
 
 	if err := app.SetRoot(flex, true).Run(); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 
