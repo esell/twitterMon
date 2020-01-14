@@ -1,5 +1,7 @@
 # About
 
+![](screenshot.png)
+
 I follow a bunch of people who span a bunch of topics and wanted a way to keep track of all the cool stuff they post.
 I figured there would certainly be a read-only type tool to just stream tweets for you to view. I wasn't able to find anything
 which is why I created this.
