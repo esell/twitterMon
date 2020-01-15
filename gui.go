@@ -49,6 +49,7 @@ func textViewProcessFeed(tv *cview.TextView, listID int64, api *anaconda.Twitter
 		for _, tweet := range timeTweets {
 			tempTime, err := tweet.CreatedAtTime()
 			if err != nil {
+				log.Println(err)
 			}
 			if tweet.RetweetedStatus != nil {
 				fmt.Fprintf(tv, "[#66CCFF::b]@%s[-::-] at [#66CCFF]%s[-] [red]*RT*[-]:\n\n%s\n%s\n\n", tweet.User.ScreenName, tempTime.Local().Format(time.UnixDate), tweet.FullText, tweetSplit)

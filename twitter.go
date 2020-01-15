@@ -17,9 +17,7 @@ func getFollowing(api *anaconda.TwitterApi) ([]anaconda.User, error) {
 	urlVals.Set("count", "200")
 	pages := api.GetFriendsListAll(urlVals)
 	for page := range pages {
-		for _, friend := range page.Friends {
-			following = append(following, friend)
-		}
+		following = append(following, page.Friends...)
 	}
 
 	return following, nil

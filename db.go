@@ -12,7 +12,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func insertFollowing(acct_name, list string) error {
+func insertFollowing(acctName, list string) error {
 	tx, err := db.Begin()
 	if err != nil {
 		return err
@@ -23,7 +23,7 @@ func insertFollowing(acct_name, list string) error {
 		return err
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(acct_name, list)
+	_, err = stmt.Exec(acctName, list)
 	if err != nil {
 		return err
 	}
@@ -76,8 +76,6 @@ func loadFollowing(fileName string) error {
 			if err != nil {
 				log.Printf("error inserting %s: %v\n", record[1], err)
 			}
-		} else {
-			// nil
 		}
 	}
 
@@ -124,9 +122,9 @@ func assignToList(api *anaconda.TwitterApi, listName string, listID int64) {
 
 	// map of list names -> list ids
 	for rows.Next() {
-		var acct_name string
-		rows.Scan(&acct_name)
-		acctsToAdd = append(acctsToAdd, acct_name)
+		var acctName string
+		rows.Scan(&acctName)
+		acctsToAdd = append(acctsToAdd, acctName)
 	}
 	api.AddMultipleUsersToList(acctsToAdd, listID, nil)
 }
@@ -142,10 +140,10 @@ func assignAllToLists(api *anaconda.TwitterApi) {
 
 	// map of list names -> list ids
 	for rows.Next() {
-		var list_name string
+		var listName string
 		var listID int64
-		rows.Scan(&list_name, &listID)
-		listIDs[list_name] = listID
+		rows.Scan(&listName, &listID)
+		listIDs[listName] = listID
 	}
 
 	for k, v := range listIDs {
@@ -161,9 +159,9 @@ func dumpLists() {
 
 	// map of list names -> list ids
 	for rows.Next() {
-		var list_name string
+		var listName string
 		var listID int64
-		rows.Scan(&list_name, &listID)
-		fmt.Printf("%s,%d\n", list_name, listID)
+		rows.Scan(&listName, &listID)
+		fmt.Printf("%s,%d\n", listName, listID)
 	}
 }
