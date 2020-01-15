@@ -25,7 +25,7 @@ as a way to organize who I follow, but the list doesn't have to be private for t
 Before you begin, you'll need a twitter dev account as you'll need to be able to interact with the twitter API. Once you have that, you
 can populate the config file with your access token(s).
 
-To install, you can either download a compiled executable from the releases page, or, if you have go installed, do your typical go get:
+To install, ~~you can either download a compiled executable from the releases page,~~ or, if you have go installed, do your typical go get:
 
 `go get github.com/esell/twitterMon`
 
