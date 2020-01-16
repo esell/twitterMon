@@ -40,6 +40,7 @@ var (
 	parsedconfig   = conf{}
 	columnItems    = make([]*cview.TextView, 0)
 	app            = cview.NewApplication()
+	flex           = cview.NewFlex()
 )
 
 func main() {
@@ -124,7 +125,21 @@ func main() {
 	cview.Borders.BottomLeftFocus = cview.BoxDrawingsLightUpAndRight
 	cview.Borders.BottomRightFocus = cview.BoxDrawingsLightUpAndLeft
 
-	flex := cview.NewFlex()
+	// key commands
+	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyCtrlA {
+			currentColumn := app.GetFocus()
+			showModal(currentColumn.(*cview.TextView))
+		}
+		if event.Key() == tcell.KeyCtrlD {
+			inFocus := app.GetFocus()
+			target := nextColumn(columnItems, inFocus.(*cview.TextView))
+			flex.RemoveItem(inFocus)
+			app.SetFocus(target)
+			target.SetTitleColor(tcell.ColorYellow)
+		}
+		return event
+	})
 
 	for _, list := range parsedconfig.Lists {
 		tempView := createTextViewItem(list.Name)

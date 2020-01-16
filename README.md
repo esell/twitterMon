@@ -41,5 +41,12 @@ you want to use.
 3. Now the fun part. Open up `out.csv` and add a third value for each row, this will be the list you want to assign the account to. Again, the repo has an example of this. It is important that you use the same list names from `list.csv`, otherwise the app won't be able to map everything correctly.
 4. Run `./twitterMon -n -l` to create the database structure, create the lists and then add accounts to each list based on the mapping from `out.csv`.
 5. Now you need to setup your config with the lists you want to display in the app. You'll need the list name and the list ID, which you can dump with `./twitterMon -d`. repo == example.
-6. Run `/.twitterMon` and enjoy. The `tab` key cycles through the columns, and the typical up/down (or pgup/pgdn) will scroll through the column.
+6. Run `/.twitterMon` and enjoy. 
+
+# Keyboard Shortcuts
+
+
+* The `tab` key cycles through the columns, and the typical up/down (or pgup/pgdn) will scroll through the column.
+* `ctrl+d` will delete the focused column
+* `ctrl+a` will add a column
 

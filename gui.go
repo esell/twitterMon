@@ -61,6 +61,40 @@ func textViewProcessFeed(tv *cview.TextView, listID int64, api *anaconda.Twitter
 	}
 }
 
+func showModal(currentColumn *cview.TextView) {
+	buttons := make([]string, 0)
+
+	for _, column := range columnItems {
+		if !isColumnActive(column) {
+			buttons = append(buttons, column.GetTitle())
+		}
+	}
+	buttons = append(buttons, "Close")
+
+	modal := cview.NewModal().
+		SetText("Select a column to add").
+		AddButtons(buttons)
+
+	modal.SetDoneFunc(func(buttonIndex int, buttonLabel string) {
+		if buttonLabel == "Close" {
+			app.SetRoot(flex, true)
+		} else {
+			columnToAdd := getColumnByTitle(buttonLabel)
+			app.QueueUpdateDraw(func() {
+				flex.AddItem(columnToAdd, 0, 1, true)
+				app.SetRoot(flex, true)
+				app.SetFocus(columnToAdd)
+				currentColumn.SetTitleColor(tcell.ColorWhite)
+				columnToAdd.SetTitleColor(tcell.ColorYellow)
+			})
+		}
+	})
+	app.QueueUpdateDraw(func() {
+		app.SetRoot(modal, true)
+		app.SetFocus(modal)
+	})
+}
+
 func buildBreak(tv *cview.TextView) string {
 	_, _, w, _ := tv.GetInnerRect()
 	charCount := w / 2
@@ -76,14 +110,35 @@ func buildBreak(tv *cview.TextView) string {
 }
 
 func nextColumn(columns []*cview.TextView, view *cview.TextView) *cview.TextView {
-	for k, v := range columns {
-		if view == v {
-			if k+1 == len(columns) {
-				return columns[0]
+	childers := flex.GetChildren()
+	for k, v := range childers {
+		if view == v.(*cview.TextView) {
+			if k+1 == len(childers) {
+				return childers[0].(*cview.TextView)
 			} else {
-				return columns[k+1]
+				return childers[k+1].(*cview.TextView)
 			}
 		}
 	}
 	return nil
+}
+
+func getColumnByTitle(title string) *cview.TextView {
+	for _, column := range columnItems {
+		if column.GetTitle() == title {
+			return column
+		}
+	}
+	return nil
+}
+
+func isColumnActive(column *cview.TextView) bool {
+	childers := flex.GetChildren()
+	for _, v := range childers {
+		if column == v.(*cview.TextView) {
+			return true
+		}
+	}
+
+	return false
 }
