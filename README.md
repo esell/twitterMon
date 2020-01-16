@@ -29,11 +29,10 @@ To install, ~~you can either download a compiled executable from the releases pa
 
 `go get github.com/esell/twitterMon`
 
-*NOTE*: sqlite is used for storage and the sqlite library I use depends on cgo.
+*NOTE*: sqlite is used for storage and the sqlite library I use depends on cgo. sqlite is only needed when starting with no lists.
 
 
-Currently there are a few manual steps that need to be done for this POS to work. These steps assume you do NOT have any existing lists that
-you want to use.
+Currently there are a few manual steps that need to be done for this POS to work. These steps assume you do NOT have any existing lists that you want to use. If you DO have existing lists you want to use, skip to step #5 and just use your existing list IDs in the config.
 
 
 1. Create a `lists.csv` file with the names of each list you want to create. Each name should be on its own line. There is an example in this repo.
