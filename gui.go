@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"git.sr.ht/~tslocum/cview"
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/gdamore/tcell"
+	"gitlab.com/tslocum/cview"
 )
 
 func createTextViewItem(title string) *cview.TextView {

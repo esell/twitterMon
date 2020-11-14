@@ -10,10 +10,10 @@ import (
 	"os"
 	"time"
 
-	"git.sr.ht/~tslocum/cview"
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/gdamore/tcell"
 	_ "github.com/mattn/go-sqlite3"
+	"gitlab.com/tslocum/cview"
 )
 
 type conf struct {
