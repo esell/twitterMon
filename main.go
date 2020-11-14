@@ -155,7 +155,8 @@ func main() {
 		flex.AddItem(v, 0, 1, true)
 	}
 
-	if err := app.SetRoot(flex, true).Run(); err != nil {
+	app.SetRoot(flex, true)
+	if err := app.Run(); err != nil {
 		log.Fatal(err)
 	}
 }

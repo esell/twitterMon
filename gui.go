@@ -12,11 +12,12 @@ import (
 )
 
 func createTextViewItem(title string) *cview.TextView {
-	tempView := cview.NewTextView().
-		SetDynamicColors(true).
-		SetRegions(false).
-		SetWordWrap(true)
-	tempView.SetBorder(true).SetTitle(title)
+	tempView := cview.NewTextView()
+	tempView.SetDynamicColors(true)
+	tempView.SetRegions(false)
+	tempView.SetWordWrap(true)
+	tempView.SetBorder(true)
+	tempView.SetTitle(title)
 	tempView.SetBorderColor(tcell.ColorGrey)
 	tempView.SetChangedFunc(func() {
 		tempView.ScrollToBeginning()
@@ -71,9 +72,9 @@ func showModal(currentColumn *cview.TextView) {
 	}
 	buttons = append(buttons, "Close")
 
-	modal := cview.NewModal().
-		SetText("Select a column to add").
-		AddButtons(buttons)
+	modal := cview.NewModal()
+	modal.SetText("Select a column to add")
+	modal.AddButtons(buttons)
 
 	modal.SetDoneFunc(func(buttonIndex int, buttonLabel string) {
 		if buttonLabel == "Close" {
