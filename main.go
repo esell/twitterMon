@@ -10,10 +10,10 @@ import (
 	"os"
 	"time"
 
-	"git.sr.ht/~tslocum/cview"
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/gdamore/tcell"
 	_ "github.com/mattn/go-sqlite3"
+	"gitlab.com/tslocum/cview"
 )
 
 type conf struct {
@@ -155,7 +155,8 @@ func main() {
 		flex.AddItem(v, 0, 1, true)
 	}
 
-	if err := app.SetRoot(flex, true).Run(); err != nil {
+	app.SetRoot(flex, true)
+	if err := app.Run(); err != nil {
 		log.Fatal(err)
 	}
 }
